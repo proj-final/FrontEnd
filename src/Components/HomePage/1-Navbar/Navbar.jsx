@@ -95,9 +95,7 @@ function Navbar() {
           <Link to="/signup" className="block px-4 py-2 text-blue-500 hover:bg-gray-200">
             Sign Up
           </Link>
-          <Link to="/orders" className="block px-4 py-2 text-blue-500 hover:bg-gray-200">
-            My orders
-          </Link>
+         
           <Link to="/client-dashboard" className="block px-4 py-2 text-blue-500 hover:bg-gray-200">
             user profile
           </Link>
