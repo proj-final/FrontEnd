@@ -25,6 +25,7 @@ function Navbar() {
               user Profile  
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
             </Link> 
+           
 
             <a
               href="#menu"
@@ -97,8 +98,9 @@ function Navbar() {
           </Link>
          
           <Link to="/client-dashboard" className="block px-4 py-2 text-blue-500 hover:bg-gray-200">
-            user profile
+            User Profile
           </Link>
+         
         </div>
       )}
     </nav>
