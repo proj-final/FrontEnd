@@ -24,6 +24,10 @@ function Navbar() {
              <Link to="/client-dashboard" className="text-gray-800 font-medium relative group">
               user Profile  
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
+            </Link>
+            <Link to="/deliveryDashboard" className="text-gray-800 font-medium relative group">
+            delivery Dashboard
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
             </Link> 
 
             <a
