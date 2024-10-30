@@ -9,12 +9,29 @@ import SignUpAsdeliveryBoy from "./Components/Authentication/SignUp/SignUpAsdeli
 import SignUpAsClient from "./Components/Authentication/SignUp/SignUpAsClient";
 import Login from "./Components/Authentication/Login/Login";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { useRef } from "react";
+import { useState, useEffect,useRef } from "react";
 import OurChefs from "./Components/HomePage/ower chifs/chifs";
 import Order from "./Components/Order/Orders";
 import ClientDashboard from "./Components/ClientDashboard/Client";
 
+
 const LayoutWithNavbarAndHero = ({ children }) => {
+
+  const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token'); 
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+
+    if (token && storedUser) {
+      setUser(storedUser);
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false); 
+    }
+  }, []);
+  
   const servicesRef = useRef(null);
   const foodMenuRef = useRef(null);
 
@@ -27,6 +44,8 @@ const LayoutWithNavbarAndHero = ({ children }) => {
   return (
     <>
       <Navbar
+        user={user} 
+        isAuthenticated={isAuthenticated}
         scrollToServices={() => scrollToSection(servicesRef)}
         scrollToFoodMenu={() => scrollToSection(foodMenuRef)}
       />
