@@ -29,6 +29,13 @@ function Navbar({ user, isAuthenticated }) {
         }
     };
 
+
+             <Link to="/client-dashboard" className="text-gray-800 font-medium relative group">
+              user Profile  
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
+            </Link> 
+           
+
     // Fetch cart count when the component mounts
     useEffect(() => {
         const fetchCartCount = async () => {
@@ -49,6 +56,7 @@ function Navbar({ user, isAuthenticated }) {
                 console.error('Error fetching cart count:', error);
             }
         };
+
 
         if (isAuthenticated) {
             fetchCartCount();
@@ -83,6 +91,37 @@ function Navbar({ user, isAuthenticated }) {
                             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
                         </a>
                     </div>
+
+
+      {isOpen && (
+        <div className="md:hidden">
+          <Link to="/" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">
+            Home
+          </Link>
+          <a href="#menu" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">
+            Menu
+          </a>
+          <a href="#about" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">
+            About Us
+          </a>
+          <a href="#contact" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">
+            Contact
+          </a>
+          <Link to="/login" className="block px-4 py-2 text-blue-500 hover:bg-gray-200">
+            Login
+          </Link>
+          <Link to="/signup" className="block px-4 py-2 text-blue-500 hover:bg-gray-200">
+            Sign Up
+          </Link>
+         
+          <Link to="/client-dashboard" className="block px-4 py-2 text-blue-500 hover:bg-gray-200">
+            User Profile
+          </Link>
+         
+        </div>
+      )}
+    </nav>
+  );
 
                     <div className="hidden md:flex items-center space-x-4">
                         {isAuthenticated ? (
@@ -154,6 +193,7 @@ function Navbar({ user, isAuthenticated }) {
             )}
         </nav>
     );
+
 }
 
 export default Navbar;
