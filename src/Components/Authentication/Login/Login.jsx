@@ -1,82 +1,112 @@
-import React from 'react';
-import loginBg from '../../../Images/tunisian.jpg'; 
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import tunisian from "../../../Images/tunisian.jpg"
 function Login() {
+  const [formData, setFormData] = useState({ email: '', password: '' });
+
+  const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch('http://127.0.0.1:5000/api/users/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+      console.log(data)
+
+      if (response.ok) {
+        const userData = {
+          id: data.user.id,
+          email: data.user.email,
+          phone: data.user.phoneNumber,
+          name: data.user.name,
+          imageUrl: data.user.imageUrl,
+          userType: data.userType
+        };
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(userData));
+
+        console.log(userData)
+        switch (data.userType) {
+          case 'client':
+            navigate('/client-dashboard');
+            break;
+          case 'chief':
+            navigate('/chef-dashboard');
+            break;
+          case 'deliveryBoy':
+            navigate('/deliveryboy-dashboard');
+            break;
+          case 'admin':
+            break;
+          default:
+            setError('Unknown user type');
+        }
+      } else {
+        setError(data.error || 'Invalid login credentials');
+      }
+    } catch (err) {
+      setError('Server error, please try again later');
+    }
+  };
 
   return (
     <div
-      className="h-screen bg-cover bg-center flex justify-center items-center"
-      style={{ backgroundImage: `url(${loginBg})` }}
+      className="h-screen flex justify-center items-center bg-cover bg-center"
+      style={{ backgroundImage: `url(${tunisian})` }}
     >
-      {/* Card container */}
-      <div className="bg-white bg-opacity-90 p-8 rounded-lg shadow-lg max-w-md w-full transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-        <h2 className="text-4xl font-bold text-center mb-6 text-gray-800">
-          Login
-        </h2>
-        <form className="space-y-4">
-          {/* Email Field with Icon */}
+      <div className="bg-white bg-opacity-80 p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">Login</h2>
+        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div className="relative">
-            <label className="block text-gray-700 font-medium mb-2" htmlFor="email">
-              Email
-            </label>
-            <div className="flex items-center">
-              <i className="fas fa-envelope text-gray-400 absolute left-3"></i>
-              <input
-                type="email"
-                id="email"
-                className="w-full px-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter your email"
-              />
-            </div>
+            <label className="block text-gray-700 font-medium mb-2" htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full px-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+              placeholder="Enter your email"
+              required
+            />
           </div>
 
-          {/* Password Field with Icon */}
           <div className="relative">
-            <label className="block text-gray-700 font-medium mb-2" htmlFor="password">
-              Password
-            </label>
-            <div className="flex items-center">
-              <i className="fas fa-lock text-gray-400 absolute left-3"></i>
-              <input
-                type="password"
-                id="password"
-                className="w-full px-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter your password"
-              />
-            </div>
+            <label className="block text-gray-700 font-medium mb-2" htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full px-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+              placeholder="Enter your password"
+              required
+            />
           </div>
 
-          {/* Buttons Container */}
-          <div className="flex justify-between">
-            {/* Submit Button */}
-            <button
-              type="submit"
-              className="py-3 bg-orange-500 text-white font-semibold rounded-md shadow-md hover:bg-orange-600 transition duration-300 w-1/2 mr-1"
-            >
-              Login
-            </button>
-            {/* Redirect to Sign Up */}
-            <button
-              type="button"
-              onClick={() => navigate('/')} // Redirect to signup page when clicked
-              className="py-3 bg-gray-600 text-white font-semibold rounded-md shadow-md hover:bg-gray-700 transition duration-300 w-1/2 ml-1"
-            >
-              Cancel
-            </button>
-          </div>
-          
-          {/* Question about account */}
-          <p className="text-center text-gray-600 mt-4">
-            Don't have an account?{' '}
-            <span 
-              className="text-blue-500 cursor-pointer hover:underline"
-              onClick={() => navigate('/signup')}
-            >
-              Sign Up
-            </span>
-          </p>
+          <button
+            type="submit"
+            className="w-full py-2 px-4 bg-green-500 text-white font-bold rounded-md hover:bg-green-600 transition-all"
+          >
+            Login
+          </button>
         </form>
       </div>
     </div>
