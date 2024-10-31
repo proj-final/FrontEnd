@@ -1,7 +1,7 @@
 import React from 'react';
 import Sidebar from './Sidebar';
 import Profile from './Profile.jsx';
-import Orders from './Orders.jsx';
+import Orders from './Orders.jsx'
 import Notifications from './Notifications';
 
 function DeliveryBoyDashboard() {

@@ -26,6 +26,8 @@ function Navbar({ user, isAuthenticated }) {
             case 'deliveryBoy':
                 navigate('/deliveryboy-dashboard');
                 break;
+            default:
+                break;
         }
     };
 
@@ -55,6 +57,39 @@ function Navbar({ user, isAuthenticated }) {
         }
     }, [isAuthenticated]); // Run this effect when isAuthenticated changes
 
+    const navLinks = (
+        <>
+            <Link to="/" className="text-gray-800 font-medium relative group">
+                Home
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
+            </Link>
+            {isAuthenticated && user?.userType === 'client' && (
+                <Link to="/client-dashboard" className="text-gray-800 font-medium relative group">
+                    User Profile
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
+                </Link>
+            )}
+            {isAuthenticated && user?.userType === 'deliveryBoy' && (
+                <Link to="/deliveryDashboard" className="text-gray-800 font-medium relative group">
+                    Delivery Profile
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
+                </Link>
+            )}
+            <a href="#menu" className="text-gray-800 font-medium relative group">
+                Menu
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
+            </a>
+            <a href="#about" className="text-gray-800 font-medium relative group">
+                About Us
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
+            </a>
+            <a href="#contact" className="text-gray-800 font-medium relative group">
+                Contact
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
+            </a>
+        </>
+    );
+
     return (
         <nav className="bg-white shadow-lg sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,44 +99,9 @@ function Navbar({ user, isAuthenticated }) {
                             QuickBite 🍴
                         </Link>
                     </div>
-
-          <div className="hidden md:flex space-x-4 items-center">
-            <Link to="/" className="text-gray-800 font-medium relative group">
-              Home
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
-            </Link>
-
-             <Link to="/client-dashboard" className="text-gray-800 font-medium relative group">
-              user Profile  
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
-            </Link> 
-            <Link to="/deliveryDashboard" className="text-gray-800 font-medium relative group">
-            delivery Profile
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
-            </Link>
-
-            <a
-              href="#menu"
-              className="text-gray-800 font-medium relative group"
-            >
-              Menu
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
-            </a>
-            <a
-              href="#about"
-              className="text-gray-800 font-medium relative group"
-            >
-              About Us
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
-            </a>
-            <a
-              href="#contact"
-              className="text-gray-800 font-medium relative group"
-            >
-              Contact
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
-            </a>
-          </div>
+                    <div className="hidden md:flex space-x-4 items-center">
+                        {navLinks}
+                    </div>
 
                     <div className="hidden md:flex items-center space-x-4">
                         {isAuthenticated ? (
@@ -109,7 +109,7 @@ function Navbar({ user, isAuthenticated }) {
                                 <Link to="/cart" className="relative">
                                     <FaShoppingCart className="text-gray-700 hover:text-green-500" size={24} />
                                     <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1">
-                                        {cartCount} {/* Display dynamic cart count */}
+                                        {cartCount}
                                     </span>
                                 </Link>
                                 <div className="flex items-center space-x-2">
@@ -117,6 +117,7 @@ function Navbar({ user, isAuthenticated }) {
                                         src={user?.imageUrl || avatar}
                                         className="w-10 h-10 rounded-full cursor-pointer"
                                         onClick={handleImageClick}
+                                        alt="User Avatar"
                                     />
                                     <span className="font-medium text-gray-800">{user?.name}</span>
                                     <button
@@ -155,38 +156,24 @@ function Navbar({ user, isAuthenticated }) {
                 </div>
             </div>
 
-      {isOpen && (
-        <div className="md:hidden">
-          <Link to="/" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">
-            Home
-          </Link>
-          <a href="#menu" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">
-            Menu
-          </a>
-          <a href="#about" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">
-            About Us
-          </a>
-          <a href="#contact" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">
-            Contact
-          </a>
-          <Link to="/login" className="block px-4 py-2 text-blue-500 hover:bg-gray-200">
-            Login
-          </Link>
-          <Link to="/signup" className="block px-4 py-2 text-blue-500 hover:bg-gray-200">
-            Sign Up
-          </Link>
-         
-          <Link to="/client-dashboard" className="block px-4 py-2 text-blue-500 hover:bg-gray-200">
-            User Profile
-          </Link>
-            <Link to="/deliveryDashboard" className="block px-4 py-2 text-blue-500 hover:bg-gray-200">
-            delivery Profile
-          </Link>
-         
-        </div>
-      )}
-    </nav>
-  );
+            {isOpen && (
+                <div className="md:hidden">
+                    {navLinks}
+                    {isAuthenticated && user?.userType === 'deliveryBoy' && (
+                        <Link to="/deliveryDashboard" className="block px-4 py-2 text-blue-500 hover:bg-gray-200">
+                            Delivery Profile
+                        </Link>
+                    )}
+                    <Link to="/login" className="block px-4 py-2 text-blue-500 hover:bg-gray-200">
+                        Login
+                    </Link>
+                    <Link to="/signup" className="block px-4 py-2 text-blue-500 hover:bg-gray-200">
+                        Sign Up
+                    </Link>
+                </div>
+            )}
+        </nav>
+    );
 }
 
 export default Navbar;

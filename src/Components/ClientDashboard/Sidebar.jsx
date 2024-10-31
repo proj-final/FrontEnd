@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaHome, FaSignOutAlt, FaUserCircle, FaStar, FaComment } from 'react-icons/fa'; // Import icons
+import { FaHome, FaSignOutAlt, FaUserCircle, FaStar, FaShoppingBag } from 'react-icons/fa'; // Replace with a shopping bag icon
 import { useNavigate } from 'react-router-dom';
 
 function Sidebar() {
@@ -13,7 +13,7 @@ function Sidebar() {
 
   return (
     <aside className="bg-white shadow-lg w-64 p-6 rounded-lg transition-all duration-300 transform hover:scale-105">
-    <h2 className="text-3xl font-bold mb-6 text-center text-orange-500">Client's Hub 🍴</h2>
+      <h2 className="text-3xl font-bold mb-6 text-center text-orange-500">Client's Hub 🍴</h2>
       <nav className="flex flex-col space-y-4">
         <button
           onClick={() => navigate('/')}
@@ -27,8 +27,9 @@ function Sidebar() {
         >
           <FaUserCircle className="mr-2" /> Edit Profile
         </button>
+
+       
         
-        {/* Ratings Button */}
         <button
           onClick={() => navigate('/ratings')}
           className="flex items-center text-gray-700 hover:bg-orange-500 hover:text-white p-2 rounded-md transition duration-300"

@@ -11,7 +11,6 @@ import Login from "./Components/Authentication/Login/Login";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useState, useEffect,useRef } from "react";
 import OurChefs from "./Components/HomePage/ower chifs/chifs";
-import Order from "./Components/Order/Orders";
 import ClientDashboard from "./Components/ClientDashboard/Client";
 import DeliveryDashboard  from "./Components/deliveryBoyDashboard/DeliveryDashboard"
 
@@ -61,7 +60,6 @@ const LayoutWithNavbarAndHero = ({ children }) => {
         <OurChefs />
       </div>
       <div>
-        <Order/>
       </div>
       {children}
     </>
@@ -81,8 +79,9 @@ function App() {
         <Route path="/SignUpAsChef" element={<SignUpAsChef />} />
         <Route path="/SignUpAsdeliveryBoy" element={<SignUpAsdeliveryBoy />} />
         <Route path="/Login" element={<Login />} />
-        <Route path="/orders" element={<Order />} />
         <Route path="/client-dashboard" element={<ClientDashboard />} />
+        
+       
         <Route path="/deliveryDashboard" element={<DeliveryDashboard />} />
 
       </Routes>
