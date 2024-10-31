@@ -12,6 +12,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useState, useEffect,useRef } from "react";
 import OurChefs from "./Components/HomePage/ower chifs/chifs";
 import ClientDashboard from "./Components/ClientDashboard/Client";
+import DeliveryDashboard  from "./Components/deliveryBoyDashboard/DeliveryDashboard"
 
 
 const LayoutWithNavbarAndHero = ({ children }) => {
@@ -81,6 +82,7 @@ function App() {
         <Route path="/client-dashboard" element={<ClientDashboard />} />
         
        
+        <Route path="/deliveryDashboard" element={<DeliveryDashboard />} />
 
       </Routes>
     </Router>
