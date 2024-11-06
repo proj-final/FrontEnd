@@ -1,6 +1,9 @@
+// Login.jsx
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import tunisian from "../../../Images/tunisian.jpg"
+import tunisian from '../../../Images/tunisian.jpg';
+
 function Login() {
   const [formData, setFormData] = useState({ email: '', password: '' });
 
@@ -26,32 +29,33 @@ function Login() {
       });
 
       const data = await response.json();
-      console.log(data)
+      console.log(data);
 
       if (response.ok) {
         const userData = {
           id: data.user.id,
           email: data.user.email,
-          phone: data.user.phoneNumber,
+          phone: data.user.phone,
           name: data.user.name,
           imageUrl: data.user.imageUrl,
-          userType: data.userType
+          userType: data.userType,
         };
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(userData));
 
-        console.log(userData)
+        console.log(userData);
         switch (data.userType) {
           case 'client':
             navigate('/client-dashboard');
             break;
-          case 'chief':
+          case 'chef':
             navigate('/chef-dashboard');
             break;
           case 'deliveryBoy':
             navigate('/deliveryboy-dashboard');
             break;
           case 'admin':
+            navigate('/admin-dashboard');
             break;
           default:
             setError('Unknown user type');
@@ -60,6 +64,7 @@ function Login() {
         setError(data.error || 'Invalid login credentials');
       }
     } catch (err) {
+      console.error('Error during login:', err);
       setError('Server error, please try again later');
     }
   };
@@ -70,11 +75,22 @@ function Login() {
       style={{ backgroundImage: `url(${tunisian})` }}
     >
       <div className="bg-white bg-opacity-80 p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">Login</h2>
-        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+        <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
+          Login
+        </h2>
+        {error && (
+          <p className="text-red-500 text-center mb-4">
+            {error}
+          </p>
+        )}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="relative">
-            <label className="block text-gray-700 font-medium mb-2" htmlFor="email">Email</label>
+            <label
+              className="block text-gray-700 font-medium mb-2"
+              htmlFor="email"
+            >
+              Email
+            </label>
             <input
               type="email"
               id="email"
@@ -88,7 +104,12 @@ function Login() {
           </div>
 
           <div className="relative">
-            <label className="block text-gray-700 font-medium mb-2" htmlFor="password">Password</label>
+            <label
+              className="block text-gray-700 font-medium mb-2"
+              htmlFor="password"
+            >
+              Password
+            </label>
             <input
               type="password"
               id="password"

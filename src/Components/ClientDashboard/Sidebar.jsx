@@ -17,7 +17,7 @@ function Sidebar() {
       <nav className="flex flex-col space-y-4">
         
         <button
-          onClick={() => alert('Edit Profile functionality to be implemented')}
+          onClick={() => navigate('/updateprofileClient')}
           className="flex items-center text-gray-700 hover:bg-orange-500 hover:text-white p-2 rounded-md transition duration-300"
         >
           <FaUserCircle className="mr-2" /> Edit Profile
