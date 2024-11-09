@@ -13,8 +13,19 @@ const Order = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const clientId = 1; // Replace with the actual client ID from your authentication context or props
-        const response = await axios.get(`http://localhost:5000/api/orders/orders/${clientId}`);
+        // Retrieve the token from localStorage
+        const token = localStorage.getItem('token');
+        
+        // Set up the config object with the Authorization header
+        const config = {
+          headers: {
+            'Authorization': `Bearer ${token}`, // Use Bearer token format
+            'Content-Type': 'application/json'
+          }
+        };
+
+        // Fetch the client orders
+        const response = await axios.get('http://localhost:5000/api/orders/orders', config);
         setOrders(response.data);
       } catch (error) {
         console.error("Error fetching orders:", error);
@@ -22,7 +33,7 @@ const Order = () => {
     };
     
     fetchOrders();
-  }, []); // Empty dependency array to run once on mount
+  }, []); 
 
   const handleDeleteClick = (orderId) => {
     setOrderToActOn(orderId);
@@ -37,8 +48,24 @@ const Order = () => {
 
   const handleConfirmDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/orders/${orderToActOn}`); // Delete request
+      // Retrieve the token from localStorage
+      const token = localStorage.getItem('token');
+
+      // Set up the config object with the Authorization header
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${token}`, // Use Bearer token format
+          'Content-Type': 'application/json'
+        }
+      };
+
+      // Make the delete request to the server with the selected order ID
+      await axios.delete(`http://localhost:5000/api/orders/${orderToActOn}`, config);
+
+      // Update the orders state to remove the deleted order
       setOrders(orders.filter((order) => order.id !== orderToActOn));
+
+      // Close the popup and reset the selected order
       setShowPopup(false);
       setOrderToActOn(null);
     } catch (error) {
@@ -99,7 +126,7 @@ const Order = () => {
                     onClick={() => handleDeleteClick(order.id)}
                     className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg font-semibold hover:bg-gray-300"
                   >
-                    Cancel {/* Changed from "Remove Dish" to "Cancel" */}
+                    Cancel 
                   </button>
                   <button
                     onClick={handleConfirmClick}

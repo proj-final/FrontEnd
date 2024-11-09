@@ -13,6 +13,7 @@ import { useState, useEffect,useRef } from "react";
 import OurChefs from "./Components/HomePage/ower chifs/chifs";
 import ClientDashboard from "./Components/ClientDashboard/Client";
 import DeliveryDashboard  from "./Components/deliveryBoyDashboard/DeliveryDashboard"
+import UpdateProfile from "./Components/ClientDashboard/updateprofile";
 
 
 const LayoutWithNavbarAndHero = ({ children }) => {
@@ -80,7 +81,7 @@ function App() {
         <Route path="/SignUpAsdeliveryBoy" element={<SignUpAsdeliveryBoy />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/client-dashboard" element={<ClientDashboard />} />
-        
+        <Route path="/updateprofileClient" element={<UpdateProfile/>}/>
        
         <Route path="/deliveryDashboard" element={<DeliveryDashboard />} />
 

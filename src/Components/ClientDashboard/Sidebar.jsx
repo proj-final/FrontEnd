@@ -15,14 +15,9 @@ function Sidebar() {
     <aside className="bg-white shadow-lg w-64 p-6 rounded-lg transition-all duration-300 transform hover:scale-105">
       <h2 className="text-3xl font-bold mb-6 text-center text-orange-500">Client's Hub 🍴</h2>
       <nav className="flex flex-col space-y-4">
+        
         <button
-          onClick={() => navigate('/')}
-          className="flex items-center text-gray-700 hover:bg-orange-500 hover:text-white p-2 rounded-md transition duration-300"
-        >
-          <FaHome className="mr-2" /> Home
-        </button>
-        <button
-          onClick={() => alert('Edit Profile functionality to be implemented')}
+          onClick={() => navigate('/updateprofileClient')}
           className="flex items-center text-gray-700 hover:bg-orange-500 hover:text-white p-2 rounded-md transition duration-300"
         >
           <FaUserCircle className="mr-2" /> Edit Profile
